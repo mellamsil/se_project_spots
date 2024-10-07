@@ -76,10 +76,10 @@ All media queries are set at a max of 627px
 
 **Video**
 
-- [Link to the project video](https://www.loom.com/share/daa6563f49a64e439be569b09fa22bd8?sid=087e448c-918d-45e9-b322-4aed8c3699f9)
+- [Link to the project video] https://drive.google.com/file/d/19NP3zFQDkcpWXxFGPZvV3CsdlkObASVr/view?usp=sharing
 
 ## Deployment
 
 This webpage is deployed to GitHub Pages
 
-- Deployment Link:
+- Deployment Link:https://mellamsil.github.io/se_project_spots/
