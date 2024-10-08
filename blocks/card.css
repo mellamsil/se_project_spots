@@ -1,4 +1,5 @@
 .card__image {
+  border-radius: 10px;
   height: 413px;
   width: 413px;
   object-fit: cover;
@@ -6,6 +7,11 @@
 }
 
 .card__title {
+  max-width: 353px;
+  font-size: 20px;
+  line-height: 24px;
+  color: #212121;
+  margin: 0;
   font-family: poppins, Arial, Helvetica, sans-serif;
   font-weight: 500;
   text-overflow: ellipsis;
@@ -14,7 +20,6 @@
 }
 
 .card__content {
-  max-width: 353px;
   margin: 0;
   display: flex;
   align-items: center;
