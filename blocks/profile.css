@@ -1,7 +1,7 @@
 .profile {
   display: flex;
   padding: 34px 0 20px;
-  border-bottom: 1px rgba(33, 33, 33, 0.4) solid;
+  border-bottom: 1px rgb(33, 33, 33, 0.4) solid;
   justify-content: space-between;
   align-items: flex-end;
 }
@@ -23,7 +23,7 @@
   font-family: poppins, Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: 32px;
-  line-height: 32px;
+  line-height: 1;
   color: #212121;
   margin: 0 0 12px;
   text-overflow: ellipsis;
@@ -142,6 +142,69 @@
     width: 80px;
     margin-bottom: 12px;
     margin-right: 0;
+    align-self: center;
+    border-radius: 8px;
+  }
+
+  .profile__name {
+    margin-bottom: 6px;
+    max-width: 288px;
+    font-family: poppins, Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1;
+    text-align: center;
+    color: #212121;
+  }
+
+  .profile__column {
+    margin: 0 0 32px;
+  }
+
+  .profile__description {
+    margin: 0 0 32px;
+    font-size: 16px;
+    line-height: 16px;
+    max-width: 288px;
+    text-align: center;
+    align-items: center;
+    color: #212121;
+  }
+
+  .profile__add-button {
+    margin: 0;
+    max-width: 288px;
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  .profile__edit-button {
+    margin: 0;
+    max-width: 84px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile {
+    flex-direction: column;
+    max-width: 288px;
+    align-items: center;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .profile__avator {
+    margin: 0 0 12px;
+    height: 80px;
+    width: 80px;
+    margin-bottom: 12px;
+    margin-right: 0;
     border-radius: 8px;
   }
 
@@ -175,11 +238,23 @@
 
   .profile__edit-button {
     margin: 0;
-    max-width: 84px;
+    max-width: 288px;
     font-weight: 500;
     font-size: 16px;
     line-height: 1;
+  }
+
+  .profile__section {
+    max-width: 288px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  .profile__column {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    text-align: center;
+    margin-right: 0;
   }
 }
