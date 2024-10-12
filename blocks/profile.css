@@ -56,7 +56,6 @@
   font-size: 16px;
   line-height: 16px;
   color: #212121;
-  padding: 10px 20px;
   margin-top: auto;
   text-align: center;
   display: flex;
@@ -67,24 +66,12 @@
   max-width: 150px;
   position: relative;
   cursor: pointer;
-  border-radius: 90px;
 }
 
 .profile__edit-button:hover {
   opacity: 1;
   cursor: pointer;
   transition-duration: 1s;
-}
-
-.profile__edit-button::before {
-  content: "";
-  width: 16px;
-  height: 16px;
-  background-size: cover;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .profile__add-button {
@@ -148,7 +135,6 @@
     margin-bottom: 6px;
     max-width: 288px;
     font-size: 20px;
-    line-height: 1;
     text-align: center;
   }
 
@@ -163,7 +149,6 @@
     max-width: 288px;
     text-align: center;
     align-items: center;
-    color: #212121;
   }
 
   .profile__add-button {
