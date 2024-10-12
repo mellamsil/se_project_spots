@@ -6,7 +6,7 @@
   font-size: 16px;
   line-height: 1;
   font-weight: 400;
-  gap: 20;
+  gap: 20px;
   padding-bottom: 40px;
   padding-left: 0;
   width: 100%;
@@ -14,10 +14,18 @@
   justify-content: center;
 }
 
-@media screen and (max-width: 350px) {
+.footer__copyright {
+  width: 104px;
+  height: 16px;
+}
+
+@media screen and (max-width: 320px) {
   .footer {
-    font-size: 16px;
     padding-top: 12px;
     padding-bottom: 36px;
+  }
+
+  .footer__copyright {
+    margin-bottom: 60px;
   }
 }
