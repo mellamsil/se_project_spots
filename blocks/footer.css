@@ -23,11 +23,12 @@
 
 @media screen and (max-width: 320px) {
   .footer {
-    padding-top: 12px;
-    padding-bottom: 36px;
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 40px;
   }
 
   .footer__copyright {
-    margin-bottom: 60px;
+    margin-bottom: 20px;
   }
 }
