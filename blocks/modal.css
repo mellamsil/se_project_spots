@@ -35,6 +35,7 @@
   height: 40px;
   opacity: 40%;
   border: 2px;
+  cursor: pointer;
 }
 
 .modal__title {
