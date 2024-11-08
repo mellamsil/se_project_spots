@@ -1,5 +1,9 @@
 const initialcards = [
   {
+    name: "Griffin Wooldbridge",
+    link: " https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
+  },
+  {
     name: "Val Thorens",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
   },
@@ -23,23 +27,18 @@ const initialcards = [
     name: "Mountain house",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
-
-  {
-    name: "Griffin Wooldbridge",
-    link: " https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
-  },
 ];
 
 // Profile elements
 const profileEditButton = document.querySelector(".profile__edit-button");
-const cardModalButton = document.querySelector(".profile__new-post-button");
+const cardModalButton = document.querySelector(".profile__add-button");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
 //form elements
 const editModal = document.querySelector("#edit-modal");
 const editFormElement = editModal.querySelector(".modal__form");
-const editModalCloseButton = editModal.querySelector(".modal__close-button");
+const editModalCloseButton = editModal.querySelector(".modal__close");
 const editModalNameInput = editModal.querySelector("#profile-name-input");
 const editModalDescriptionInput = editModal.querySelector(
   "#profile-description-input"
@@ -47,7 +46,7 @@ const editModalDescriptionInput = editModal.querySelector(
 
 const cardModal = document.querySelector("#add-card-modal");
 const cardForm = cardModal.querySelector(".modal__form");
-const cardModalCloseButton = cardModal.querySelector(".modal__close-button");
+const cardModalCloseButton = cardModal.querySelector(".modal__close");
 const cardNameInput = cardModal.querySelector("#add-card-name-input");
 const cardLinkInput = cardModal.querySelector("#add-card-link-input");
 
@@ -55,7 +54,7 @@ const cardLinkInput = cardModal.querySelector("#add-card-link-input");
 const previewModal = document.querySelector("#preview-modal");
 const previewModalImageEl = previewModal.querySelector(".modal__image");
 const previewModalCaptionEl = previewModal.querySelector(".modal__caption");
-const previewModalCloseType = document.querySelector(
+const previewModalCloseButton = document.querySelector(
   ".modal__close_type_preview"
 );
 
@@ -80,10 +79,12 @@ function handleEditFormSubmit(event) {
 
 function handleAddCardSubmit(event) {
   Event.preventDefault();
+  // TODO - Make image appear when adding card
   const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
   const cardEl = getCardElement(inputValues);
   cardsList.prepend(cardEl);
   closeModal(cardModal);
+  // TODO - Make image appear when adding card
 }
 
 function getCardElement(data) {
@@ -93,6 +94,7 @@ function getCardElement(data) {
   const cardNameEl = cardElement.querySelector(".card__title");
   const cardLinkEl = cardElement.querySelector(".card__image");
   const cardLikeButton = cardElement.querySelector(".card__like-button");
+  const cardDeleteButton = cardElement.querySelector(".card__delete-button");
   //TODO - Select the delete button
 
   cardNameEl.textContent = data.name;
@@ -103,31 +105,29 @@ function getCardElement(data) {
     cardLikeButton.classList.toggle("card__like-button_liked");
   });
 
-  cardImageEl.addEventListener("click", () => {
+  cardLinkEl.addEventListener("click", () => {
     openModal(previewModal);
     previewModalImageEl.src = data.link;
-    // TODO - add the text content
-    // TODO - add the alt text
   });
 
-  // TODO - Set the listener on delete button
-  // The handler should remove the card from the DOM (see the lesson in Sprint 4 about it - the basics of the DOM chapter in Sprint 4)
+  // TODO - Set the Listener on delete button
+  // The handler should remove the card from the DOM
 
   return cardElement;
 }
 
-editModal.addEventListener("click", () => {
-  NameInput.value = profileNameEl.textContent;
-  descriptionInput.value = profileDescription.textContent;
+profileEditButton.addEventListener("click", () => {
+  editModalNameInput.value = profileName.textContent;
+  editModalDescriptionInput.value = profileDescription.textContent;
   openModal(editModal);
+});
+
+cardModalButton.addEventListener("click", () => {
+  openModal(cardModal);
 });
 
 editModalCloseButton.addEventListener("click", () => {
   closeModal(editModal);
-});
-
-profileEditButton.addEventListener("click", () => {
-  openModal(cardModal);
 });
 
 cardModalCloseButton.addEventListener("click", () => {

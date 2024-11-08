@@ -50,12 +50,16 @@
   height: 19.3px;
   z-index: 1;
   top: 20px;
-  left: 250px;
+  left: 720px;
+  display: block;
+  position: absolute;
   border-style: none;
+  right: -12.5px;
   cursor: pointer;
 }
 
 .card__delete-button:hover {
+  background-image: url("../images/delete-icon-hover.svg");
 }
 
 .card__like-button:hover {
