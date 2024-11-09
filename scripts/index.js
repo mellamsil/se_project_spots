@@ -1,9 +1,5 @@
 const initialcards = [
   {
-    name: "Griffin Wooldbridge",
-    link: " https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
-  },
-  {
     name: "Val Thorens",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
   },
@@ -79,14 +75,13 @@ function handleEditFormSubmit(event) {
 
 function handleAddCardSubmit(event) {
   Event.preventDefault();
-  // TODO - Make image appear when adding card
   const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
   const cardEl = getCardElement(inputValues);
   cardsList.prepend(cardEl);
   closeModal(cardModal);
-  // TODO - Make image appear when adding card
 }
 
+// Select an element
 function getCardElement(data) {
   const cardElement = cardTemplate.content
     .querySelector(".card")
@@ -95,7 +90,6 @@ function getCardElement(data) {
   const cardLinkEl = cardElement.querySelector(".card__image");
   const cardLikeButton = cardElement.querySelector(".card__like-button");
   const cardDeleteButton = cardElement.querySelector(".card__delete-button");
-  //TODO - Select the delete button
 
   cardNameEl.textContent = data.name;
   cardLinkEl.src = data.link;
@@ -105,17 +99,20 @@ function getCardElement(data) {
     cardLikeButton.classList.toggle("card__like-button_liked");
   });
 
+  cardDeleteButton.addEventListener("click", () => {
+    cardDeleteButton.classList.toggle("card__delete-button");
+  });
+
   cardLinkEl.addEventListener("click", () => {
     openModal(previewModal);
     previewModalImageEl.src = data.link;
+    previewModalImageEl.alt = data.name;
   });
-
-  // TODO - Set the Listener on delete button
-  // The handler should remove the card from the DOM
 
   return cardElement;
 }
 
+// Set an event listener
 profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
@@ -132,6 +129,10 @@ editModalCloseButton.addEventListener("click", () => {
 
 cardModalCloseButton.addEventListener("click", () => {
   closeModal(cardModal);
+});
+
+previewModalCloseButton.addEventListener("click", () => {
+  closeModal(previewModal);
 });
 
 editFormElement.addEventListener("submit", handleEditFormSubmit);

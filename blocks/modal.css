@@ -1,6 +1,3 @@
-/* TODO - Finish styling preview modal */
-/* TODO - Make preview modal responsive */
-
 .modal {
   position: fixed;
   top: 0;
@@ -16,11 +13,6 @@
   visibility: hidden;
 }
 
-.modal_opened {
-  transition: visibility 0s, opacity 0.5s ease-in-out;
-  visibility: visible;
-}
-
 .modal__container {
   max-width: 730px;
   width: 100%;
@@ -29,6 +21,25 @@
   border-radius: 8px;
   position: relative;
   padding: 36px 50px 32px;
+}
+
+.modal_opened {
+  transition: visibility 0s, opacity 0.5s ease-in-out;
+  visibility: visible;
+}
+
+.modal__content {
+  max-width: 730px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 10px;
+  position: relative;
+  padding: 36px 50px 32px;
+}
+
+.modal__content_type_preview {
+  padding: 0;
 }
 
 .modal__image {
@@ -51,10 +62,6 @@
   width: 100%;
   margin: auto;
   object-fit: contain;
-}
-
-.modal__content_type_preview {
-  padding: 0;
 }
 
 .modal__close {
@@ -176,6 +183,8 @@
   }
 
   .modal__content {
+    width: 288px;
+    border-radius: 4px;
     padding: 12px;
   }
 
@@ -186,8 +195,15 @@
   }
 
   .modal__close-button {
-    top: 12px;
+    top: 41px;
     right: 12px;
+  }
+
+  .modal__close_type_preview {
+    width: 288px;
+    height: 192px;
+    top: -60px;
+    left: 100px;
   }
 
   .modal__label {
