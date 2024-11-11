@@ -68,13 +68,13 @@ function closeModal(modal) {
 
 function handleEditFormSubmit(event) {
   event.preventDefault();
-  profileNameEl.textContent = NameInput.value;
-  profileDescriptionEl.textContent = DescriptionInput.value;
-  closeModal();
+  profileName.textContent = editModalNameInput.value;
+  profileDescription.textContent = editModalDescriptionInput.value;
+  closeModal(editModal);
 }
 
 function handleAddCardSubmit(event) {
-  Event.preventDefault();
+  event.preventDefault();
   const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
   const cardEl = getCardElement(inputValues);
   cardsList.prepend(cardEl);
@@ -99,8 +99,8 @@ function getCardElement(data) {
     cardLikeButton.classList.toggle("card__like-button_liked");
   });
 
-  cardDeleteButton.addEventListener("click", () => {
-    cardDeleteButton.classList.toggle("card__delete-button");
+  cardDeleteButton.addEventListener("click", (evt) => {
+    evt.target.closest(".card").remove();
   });
 
   cardLinkEl.addEventListener("click", () => {
