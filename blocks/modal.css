@@ -12,7 +12,6 @@
   padding: 0 20px;
   visibility: hidden;
   transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-  transform: scale(0.9);
 }
 
 .modal__container {
@@ -210,8 +209,8 @@
   }
 
   .modal__image {
-    width: 288px;
-    height: 426.57px;
+    max-width: unset;
+    max-height: unset;
     top: 89px;
     left: 16px;
     radius: 4px;
