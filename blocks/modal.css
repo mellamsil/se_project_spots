@@ -5,6 +5,8 @@
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
+  font-family: poppins, Arial, Helvetica, sans-serif;
+  font-weight: 500;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,8 +84,6 @@
 }
 
 .modal__title {
-  font-family: poppins, Arial, Helvetica, sans-serif;
-  font-weight: 500;
   font-size: 32px;
   line-height: 1;
   width: 169px;
@@ -93,8 +93,6 @@
 }
 
 .modal__label {
-  font-family: poppins, Arial, Helvetica, sans-serif;
-  font-weight: 500;
   font-size: 16px;
   line-height: 18px;
   color: #212121;
@@ -106,14 +104,17 @@
 }
 
 .modal__input {
-  font-family: poppins, Arial, Helvetica, sans-serif;
-  font-weight: 500;
   font-size: 20px;
   line-height: 20px;
-  color: #212121;
+  /* color: #212121; */
   padding: 16px 12px;
   border-radius: 8px;
   gap: 10px;
+  border: 1px solid rgba(33, 33, 33, 0.4);
+}
+
+.modal__input:hover {
+  border: 1px solid rgba(33, 33, 33, 1);
 }
 
 .modal__button {
@@ -134,13 +135,7 @@
   cursor: pointer;
 }
 
-.modal__input:hover {
-  border: 1px solid rgb(33, 33, 33);
-}
-
 .modal__submit-button {
-  font-family: poppins, Arial, Helvetica, sans-serif;
-  font-weight: 500;
   font-size: 16px;
   line-height: 16px;
   color: #fcf5e5;
@@ -151,11 +146,12 @@
 }
 
 .modal__caption {
+  font-family: poppins, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
   margin: 0;
   padding: 4px 8px;
-  font-size: 20px;
-  line-height: 1;
-  font-weight: 500;
   width: fit-content;
   height: 24px;
   color: #fff;
@@ -165,7 +161,7 @@
 
 @media screen and (max-width: 627px) {
   .modal {
-    padding: 0 10px;
+    padding: 0 16px;
   }
 
   .modal__container {
@@ -200,6 +196,9 @@
 
   .modal__image {
     border-radius: 4px;
+    max-width: none;
+    max-height: none;
+    width: 100%;
   }
 
   .modal__image-preview {
@@ -212,7 +211,6 @@
   .modal__caption {
     font-size: 16px;
     line-height: 19.2px;
-    font-weight: 500;
     height: 19px;
   }
 }
