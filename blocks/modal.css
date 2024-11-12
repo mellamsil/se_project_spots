@@ -106,11 +106,11 @@
 .modal__input {
   font-size: 20px;
   line-height: 20px;
-  /* color: #212121; */
   padding: 16px 12px;
   border-radius: 8px;
   gap: 10px;
   border: 1px solid rgba(33, 33, 33, 0.4);
+  cursor: pointer;
 }
 
 .modal__input:hover {
