@@ -79,6 +79,8 @@ function handleAddCardSubmit(event) {
   const cardEl = getCardElement(inputValues);
   cardsList.prepend(cardEl);
   closeModal(cardModal);
+  cardNameInput.value = "";
+  cardLinkInput.value = "";
 }
 
 // Select an element
