@@ -1,3 +1,7 @@
+// TODO - pass setting object to the validation functions that are called in this file
+
+import { resetValidation, settings, disabledButton } from "./validation.js";
+
 const initialcards = [
   {
     name: "Val Thorens",
@@ -31,22 +35,23 @@ const cardModalButton = document.querySelector(".profile__add-button");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
-//form elements
+// edit form elements
 const editModal = document.querySelector("#edit-modal");
-const editFormElement = document.forms["edit-profile"];
+const editFormElement = document.querySelector("#edit-profile-form");
 const editModalCloseButton = editModal.querySelector(".modal__close");
 const editModalNameInput = editModal.querySelector("#profile-name-input");
 const editModalDescriptionInput = editModal.querySelector(
   "#profile-description-input"
 );
-
+// card form elements
 const cardModal = document.querySelector("#add-card-modal");
 const cardForm = cardModal.querySelector(".modal__form");
+const cardSubmitButton = cardModal.querySelector(".modal__submit-button");
 const cardModalCloseButton = cardModal.querySelector(".modal__close");
 const cardNameInput = cardModal.querySelector("#add-card-name-input");
 const cardLinkInput = cardModal.querySelector("#add-card-link-input");
 
-//select the modal
+// preview image popup elements
 const previewModal = document.querySelector("#preview-modal");
 const previewModalImageEl = previewModal.querySelector(".modal__image");
 const previewModalCaptionEl = previewModal.querySelector(".modal__caption");
@@ -70,14 +75,16 @@ function handleEditFormSubmit(event) {
   event.preventDefault();
   profileName.textContent = editModalNameInput.value;
   profileDescription.textContent = editModalDescriptionInput.value;
-  closeModal(editModal);
+  closeModal(editModal, settings);
 }
 
 function handleAddCardSubmit(event) {
   event.preventDefault();
   const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
-  const cardEl = getCardElement(inputValues);
-  cardsList.prepend(cardEl);
+  const cardElement = getCardElement(inputValues);
+  cardsList.prepend(cardElement);
+  event.target.reset();
+  disabledButton(cardSubmitButton, settings);
   closeModal(cardModal);
   cardNameInput.value = "";
   cardLinkInput.value = "";
@@ -119,6 +126,12 @@ function getCardElement(data) {
 profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
+  //OPTIONAL
+  resetValidation(
+    editModal,
+    [editModalNameInput, editModalDescriptionInput],
+    settings
+  );
   openModal(editModal);
 });
 
@@ -133,17 +146,17 @@ closeButtons.forEach((button) => {
   button.addEventListener("click", () => closeModal(modal));
 });
 
-// editModalCloseButton.addEventListener("click", () => {
-//   closeModal(editModal);
-// });
+editModalCloseButton.addEventListener("click", () => {
+  closeModal(editModal);
+});
 
-// cardModalCloseButton.addEventListener("click", () => {
-//   closeModal(cardModal);
-// });
+cardModalCloseButton.addEventListener("click", () => {
+  closeModal(cardModal);
+});
 
-// previewModalCloseButton.addEventListener("click", () => {
-//   closeModal(previewModal);
-// });
+previewModalCloseButton.addEventListener("click", () => {
+  closeModal(previewModal);
+});
 
 editFormElement.addEventListener("submit", handleEditFormSubmit);
 cardForm.addEventListener("submit", handleAddCardSubmit);
