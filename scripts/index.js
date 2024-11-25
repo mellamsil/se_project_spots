@@ -65,10 +65,27 @@ const cardTemplate = document.querySelector("#card-template");
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", closeModalEsc);
+  modal.addEventListener("mousedown", closeModalOverlay);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", closeModalEsc);
+  modal.removeEventListener("mousedown", closeModalOverlay);
+}
+
+function closeModalEsc(event) {
+  if (event.key === "Escape") {
+    const modalOpened = document.querySelector(".modal_opened");
+    closeModal(modalOpened);
+  }
+}
+
+function closeModalOverlay(event) {
+  if (event.target.classList.contains("modal_opened")) {
+    closeModal(event.target);
+  }
 }
 
 function handleEditFormSubmit(event) {

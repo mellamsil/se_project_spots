@@ -202,14 +202,14 @@
     margin: 10px 0 34px;
   }
 
-  .modal__close-button {
-    top: 41px;
-    right: 12px;
+  .modal__close {
+    top: 0px;
+    right: -2px;
   }
 
   .modal__close_type_preview {
-    top: -48px;
-    right: 0px;
+    top: -60px;
+    right: 18px;
   }
 
   .modal__label {
