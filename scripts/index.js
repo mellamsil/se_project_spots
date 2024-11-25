@@ -103,8 +103,6 @@ function handleAddCardSubmit(event) {
   event.target.reset();
   disabledButton(cardSubmitButton, settings);
   closeModal(cardModal);
-  cardNameInput.value = "";
-  cardLinkInput.value = "";
 }
 
 // Select an element
@@ -163,18 +161,6 @@ closeButtons.forEach((button) => {
   button.addEventListener("click", () => closeModal(modal));
 });
 
-editModalCloseButton.addEventListener("click", () => {
-  closeModal(editModal);
-});
-
-cardModalCloseButton.addEventListener("click", () => {
-  closeModal(cardModal);
-});
-
-previewModalCloseButton.addEventListener("click", () => {
-  closeModal(previewModal);
-});
-
 editFormElement.addEventListener("submit", handleEditFormSubmit);
 cardForm.addEventListener("submit", handleAddCardSubmit);
 
@@ -182,3 +168,8 @@ initialcards.forEach((item) => {
   const cardElement = getCardElement(item);
   cardsList.prepend(cardElement);
 });
+
+// function renderCard(item, method = "append") {
+//   const cardElement = getCardElement(item);
+//   cardsList[append](cardElement);
+// }
