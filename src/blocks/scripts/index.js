@@ -1,4 +1,7 @@
 // TODO - pass setting object to the validation functions that are called in this file
+import { enableValidation, validationconfig } from "./validation.js";
+
+import "./pages/index.css"; // add import of the main stylesheets file
 
 import { resetValidation, settings, disabledButton } from "./validation.js";
 
@@ -28,6 +31,13 @@ const initialcards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
 ];
+
+const numbers = [2, 3, 5];
+
+// Arrow function. How will Internet Explorer cope with it?
+const doubledNumbers = numbers.map((number) => number * 2);
+
+console.log(doubledNumbers); // 4, 6, 10
 
 // Profile elements
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -168,6 +178,8 @@ initialcards.forEach((item) => {
   const cardElement = getCardElement(item);
   cardsList.prepend(cardElement);
 });
+
+enableValidation(validationconfig);
 
 // function renderCard(item, method = "append") {
 //   const cardElement = getCardElement(item);

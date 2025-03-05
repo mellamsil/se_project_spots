@@ -1,3 +1,5 @@
+export const validationconfig = {};
+
 // const showInputError = (formElement, inputElement, errorMessage) => {
 //   const errorMessageElement = formElement.querySelector(
 //     "#${inputElement.id}-error"
@@ -81,7 +83,7 @@ const setEventListeners = (formElement, config) => {
   });
 };
 
-const enableValidation = (config) => {
+export const enableValidation = (config) => {
   const formList = document.querySelectorAll(config.formSelector);
   formList.forEach((formElement) => {
     setEventListeners(formElement, config);
@@ -96,5 +98,3 @@ export const settings = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
 };
-
-enableValidation(settings);
