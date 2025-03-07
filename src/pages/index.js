@@ -1,9 +1,12 @@
-// TODO - pass setting object to the validation functions that are called in this file
-import { enableValidation, validationconfig } from "./validation.js";
+import {
+  enableValidation,
+  validationconfig,
+  resetValidation,
+  settings,
+  disabledButton,
+} from "../scripts/validation.js";
 
-import "./pages/index.css"; // add import of the main stylesheets file
-
-import { resetValidation, settings, disabledButton } from "./validation.js";
+import "./index.css"; // add import of the main stylesheets file
 
 const initialcards = [
   {

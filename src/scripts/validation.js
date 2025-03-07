@@ -1,18 +1,11 @@
-export const validationconfig = {};
-
-// const showInputError = (formElement, inputElement, errorMessage) => {
-//   const errorMessageElement = formElement.querySelector(
-//     "#${inputElement.id}-error"
-//   );
-//   errorMessageElement.textContent = errorMessage;
-// };
-
-// const hideInputError = (formElement, inputElement) => {
-//   const errorMessageElement = formElement.querySelector(
-//     "#${inputElement.id}-error"
-//   );
-//   errorMessageElement.textContent = "";
-// };
+export const validationconfig = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__submit-button",
+  inactiveButtonClass: "modal__submit-button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
 
 const showInputError = (formElement, inputElement, errorMessage, config) => {
   const errorMessageID = inputElement.id + "-error";
