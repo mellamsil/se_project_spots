@@ -27,6 +27,10 @@
   padding: 36px 50px 32px;
 }
 
+.modal__container-popup {
+  max-width: 630px;
+}
+
 .modal_opened {
   visibility: visible;
   opacity: 1;
@@ -76,6 +80,15 @@
   opacity: 40%;
 }
 
+.modal__close_type_delete {
+  background-image: url("../images/close-icon.svg");
+  width: 22.63px;
+  height: 22.63px;
+  top: 8.49px;
+  right: -32px;
+  border: 2px;
+}
+
 .modal__close:hover {
   opacity: 1;
 }
@@ -90,7 +103,6 @@
 .modal__title {
   font-size: 32px;
   line-height: 1;
-  width: 169px;
   height: 32px;
   margin: 0 0 32px;
   color: #212121;
@@ -164,6 +176,25 @@
   border-radius: 8px;
   background-color: #212121;
   cursor: pointer;
+}
+
+.modal__submit-button-delete {
+  font-size: 16px;
+  line-height: 16px;
+  background-color: #ff6565;
+  gap: 8px;
+  padding: 18px 32px;
+}
+
+.modal__delete-form {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.modal__title-delete {
+  font-size: 24px;
+  line-height: 24px;
 }
 
 .modal__submit-button_disabled {

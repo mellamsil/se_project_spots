@@ -1,4 +1,4 @@
-import { data } from "autoprefixer";
+import "../pages/index.css";
 import {
   enableValidation,
   validationconfig,
@@ -6,9 +6,9 @@ import {
   settings,
   disabledButton,
 } from "../scripts/validation.js";
-
-import "./index.css"; // add import of the main stylesheets file
+import { setButtonText } from "../utils/helpers.js";
 import Api from "../utils/Api.js";
+// import { get } from "core-js/core/dict";
 
 // const initialcards = [
 //   {
@@ -46,32 +46,30 @@ const api = new Api({
 });
 
 api
-  .getInitialCards()
-  .then((cards) => {
-    console.log(cards);
+  .getAppInfo()
+  .then(([userInfo, cards]) => {
     cards.forEach((item) => {
       const cardElement = getCardElement(item);
       cardsList.prepend(cardElement);
     });
+    profileAvatar.src = userInfo.avatar;
+    profileName.textContent = userInfo.name;
+    profileDescription.textContent = userInfo.about;
   })
 
   .catch(console.error);
-
-api.getAppInfo().then((cards) => {
-  console.log(cards);
-});
 
 const numbers = [2, 3, 5];
 
 // Arrow function. How will Internet Explorer cope with it?
 const doubledNumbers = numbers.map((number) => number * 2);
 
-console.log(doubledNumbers); // 4, 6, 10
-
 // Profile elements
 const profileEditButton = document.querySelector(".profile__edit-button");
 const cardModalButton = document.querySelector(".profile__add-button");
+const avatarModalButton = document.querySelector(".profile__avatar-button");
 const profileName = document.querySelector(".profile__name");
+const profileAvatar = document.querySelector(".profile__avatar");
 const profileDescription = document.querySelector(".profile__description");
 
 // edit form elements
@@ -90,6 +88,17 @@ const cardModalCloseButton = cardModal.querySelector(".modal__close");
 const cardNameInput = cardModal.querySelector("#add-card-name-input");
 const cardLinkInput = cardModal.querySelector("#add-card-link-input");
 
+// Avatar form elements
+const avatarModal = document.querySelector("#avatar-modal");
+const avatarForm = avatarModal.querySelector(".modal__form");
+const avatarSubmitButton = avatarModal.querySelector(".modal__submit-button");
+const avatarModalCloseButton = avatarModal.querySelector(".modal__close");
+const avatarInput = avatarModal.querySelector("#profile-avatar-input");
+
+// Delete form elements
+const deleteModal = document.querySelector("#delete-modal");
+const deleteForm = deleteModal.querySelector(".modal__delete-form");
+
 // preview image popup elements
 const previewModal = document.querySelector("#preview-modal");
 const previewModalImageEl = previewModal.querySelector(".modal__image");
@@ -101,6 +110,9 @@ const previewModalCloseButton = document.querySelector(
 //card related elements
 const cardsList = document.querySelector(".cards__list");
 const cardTemplate = document.querySelector("#card-template");
+
+let selectedCard;
+let selectedCardId;
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
@@ -129,22 +141,79 @@ function closeModalOverlay(event) {
 
 function handleEditFormSubmit(event) {
   event.preventDefault();
-  profileName.textContent = editModalNameInput.value;
-  profileDescription.textContent = editModalDescriptionInput.value;
-  closeModal(editModal, settings);
+
+  // change text content to "Saving...."
+  const submitButton = event.submitter;
+  // submitButton.textContent = "Saving...";
+  setButtonText(submitButton, true, "Save", "Saving...");
+
+  api
+    .editUserInfo({
+      name: editModalNameInput.value,
+      about: editModalDescriptionInput.value,
+    })
+    .then((data) => {
+      // TODO - Use data argument instead of the input values
+      profileName.textContent = editModalNameInput.value;
+      profileDescription.textContent = editModalDescriptionInput.value;
+      closeModal(editModal, settings);
+    })
+    .catch(console.error)
+    .finally(() => {
+      // TODO - Call setButtonText instead
+      submitButton.textContent = "Save";
+    });
 }
+
+// TODO - Implement loading text for all other form submissions
 
 function handleAddCardSubmit(event) {
   event.preventDefault();
   const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
-  const cardElement = getCardElement(inputValues);
-  cardsList.prepend(cardElement);
-  event.target.reset();
-  disabledButton(cardSubmitButton, settings);
-  closeModal(cardModal);
+
+  api
+    .addNewCards(inputValues)
+    .then((cardData) => {
+      const cardElement = getCardElement(cardData);
+      cardsList.prepend(cardElement);
+      event.target.reset();
+      disabledButton(cardSubmitButton, settings);
+      closeModal(cardModal);
+    })
+    .catch((error) => console.error(error));
 }
 
-// Select an element
+function handleavatarFormSubmit(event) {
+  event.preventDefault();
+  api
+    .editAvatarInfo(avatarInput.value)
+    .then((data) => {
+      profileAvatar.src = data.avatar;
+      console.log("Success:", data);
+      closeModal(avatarModal);
+      event.target.reset();
+    })
+    .catch((error) => console.error("Error:", error));
+}
+
+function handleDeleteSubmit(event) {
+  event.preventDefault();
+  api
+    .deleteCard(selectedCardId)
+    .then(() => {
+      selectedCard.remove();
+      closeModal(deleteModal);
+    })
+    .catch(console.error);
+}
+deleteForm.addEventListener("submit", handleDeleteSubmit);
+
+function handleDeleteCard(cardElement, cardId) {
+  selectedCard = cardElement;
+  selectedCardId = cardId;
+  openModal(deleteModal);
+}
+
 function getCardElement(data) {
   const cardElement = cardTemplate.content
     .querySelector(".card")
@@ -152,18 +221,43 @@ function getCardElement(data) {
   const cardNameEl = cardElement.querySelector(".card__title");
   const cardLinkEl = cardElement.querySelector(".card__image");
   const cardLikeButton = cardElement.querySelector(".card__like-button");
+  let isLiked = data.isLiked;
+  const id = data._id;
   const cardDeleteButton = cardElement.querySelector(".card__delete-button");
 
   cardNameEl.textContent = data.name;
   cardLinkEl.src = data.link;
   cardLinkEl.alt = data.name;
 
-  cardLikeButton.addEventListener("click", () => {
-    cardLikeButton.classList.toggle("card__like-button_liked");
-  });
+  // runs on page load, and likes the card visually if the card isLiked on the server
+  if (isLiked) {
+    cardLikeButton.classList.add("card__like-button_liked");
+  }
 
-  cardDeleteButton.addEventListener("click", (evt) => {
-    cardElement.remove();
+  cardLikeButton.addEventListener(
+    "click",
+    (event) => {
+      // if card is liked, then make request to unlike
+      //whereas if card is not liked, then make request to like it
+      api
+        .changeLikeStatus(id, isLiked)
+        .then(() => {
+          isLiked = !isLiked;
+          if (isLiked) {
+            cardLikeButton.classList.add("card__like-button_liked");
+          } else {
+            cardLikeButton.classList.remove("card__like-button_liked");
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+    //handleLike(event, data._id)
+  );
+
+  cardDeleteButton.addEventListener("click", (event) => {
+    handleDeleteCard(cardElement, data._id);
   });
 
   cardLinkEl.addEventListener("click", () => {
@@ -176,11 +270,10 @@ function getCardElement(data) {
   return cardElement;
 }
 
-// Set an event listener
 profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
-  //OPTIONAL
+
   resetValidation(
     editModal,
     [editModalNameInput, editModalDescriptionInput],
@@ -194,6 +287,14 @@ cardModalButton.addEventListener("click", () => {
 });
 
 const closeButtons = document.querySelectorAll(".modal__close");
+
+avatarModalButton.addEventListener("click", () => {
+  openModal(avatarModal);
+});
+
+avatarForm.addEventListener("submit", handleavatarFormSubmit);
+
+deleteForm.addEventListener("submit", handleDeleteSubmit);
 
 closeButtons.forEach((button) => {
   const modal = button.closest(".modal");
