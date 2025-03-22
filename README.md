@@ -1,74 +1,65 @@
-# Project 3: Spots
+# Project 9: Spots Website with API COnnectivity
 
 This is an image sharing site.
 
-## Project Overview
+## Project Description
 
-The se-project-spots is the third project of the Software Engineering program at TripleTen. The main idea of the project is to create a responsive site which responds to the user's behavior based on screen size, platform and orientation. I created this site using HTML and CSS, based on the design brief.
+The se-project-spots started from the third project of the Software Engineering program at TripleTen. The main idea of the project is to create a responsive site which responds to the user's behavior based on screen size, platform and orientation.
+
+In project 9, I connected the Spots website to a database via an API, enabling user changes to persist when the page reloads. I implemented API requestes and handled responses to create a seamless user experience.
 
 ## Project Functionality
 
-This project is made so all the elements are displayed correctly on popular screen sizes. I worked with a Figma design which provides layouts for mobile (320px) and desktop (1440px). I used responsive design techniques to make the website responsive, which means the conttent area's width will change based on the browser window's width, and eliminate horizontal scrolling to ensure it appears good on all devices.
+The following are the functionalities of the Spots website:
 
-If the user has a big screen more than 1440px the only thing that changes, the margins on the side will get bigger and I accomplished this not by setting explicit margins but I use auto margin to center page and restrict the content area and restricts the size of the elements so they don't go beyond a certain point
+1. User Profile Management:
 
-## Tech Stack
+- View and edit user profile information
+- Update profile picture
+
+2. Card Management:
+
+- View and load initial cards from the server
+- Add new cards
+- Delete existing cards
+- Like and unlike cards
+
+3. Data Persistence:
+
+- changes made to user profile and cards are saved to the server
+- Data is retrieved from the server and displayed on the page
+
+4. Error Handling and Logging:
+
+- Handling of errors and exceptions
+- Logging of errors and debugging and troubleshooting purposes
+
+5. Improved User Experience (UX):
+
+- Display of loading indicators for asynchronous operations
+- Notification of successful or failed operations
+
+## Technologies and Techniques Used
 
 - Semantic HTML5
 - CSS
 - Figma
 - Responsive Design
+- Javascript modules
+- Webpack
+- API requests (GET, POST, PATCH, DELETE)
+- Error handling and logging
 
-## Description of Technologies
+## Project Featues
 
-Responsive sites use flexible grids, responsive images, and CSS media queries to adapt layout and content to any screen size or device, ensuring optimal viewing across desktops, tablets, and smartphones.
-
-### Semantic HTML5
-
-refers to the use of HTML5 elements that provide meaning to the structure and content of a webpage, making it easier for search engines, screen readers, and other tools to understand the context and organization of the content. Semantic HTML 5 focuses on: 1. descriptive element names (e.g. header, nav, main, section, footer) 2. clear hierarchy and organization 3. meaningful relationships betwwen elements
-
-### CSS
-
-Cascading Style Sheets (CSS) is a crucial coding language in web development that governs the aesthetic and layout aspects of web pages. By utilizing CSS, developers can effectively add and manage various design elements, including:
-•⁠ ⁠Color schemes and palettes
-•⁠ ⁠Font styles and typography
-•⁠ ⁠Spacing and padding
-•⁠ ⁠Layout and grid systems
-•⁠ ⁠Visual effects, such as animations and transitions
-
-### Figma
-
-Figma is a cutting-edge, cloud-based design platform that empowers individuals or businesses to craft exceptional digital products and experiences. By providing a centralized hub for creation, sharing, and testing, Figma fosters seamless collaboration among diverse stakeholders, including:
-•⁠ ⁠Designers
-•⁠ ⁠Product managers
-•⁠ ⁠Writers
-•⁠ ⁠Developers
-
-Figma's intuitive interface facilitates real-time feedback, efficient decision-making, and accelerated project delivery, making it an indispensable tool for teams driving digital innovation.
-
-### Responsive Design
-
-Responsive web design is a comprehensive methodology that enables websites to intelligently respond to different display environments, guaranteeing effortless navigation and engagement across:
-•⁠ ⁠Various devices (desktops, laptops, tablets, smartphones)
-•⁠ ⁠Multiple screen sizes and resolutions
-•⁠ ⁠Changing orientations (landscape, portrait)
-
-This adaptable strategy encompasses various techniques, including adaptive design, to deliver cohesive, visually appealing, and user-friendly digital experiences
-
-## Description of Techniques Used
-
-In the process of building this website, I:
-• Work with designs in a graphics editor called Figma
-• Create responsive websites using grid layout
-• Use media queries to set parameters for different screen sizes (desktop, tablets, phones)
-• Work more efficiently with Git and the command line
-
-The site was designed to provide an optimal viewing experience across a wide range of devices, including desktops, tablets, and smartphones. By utilizing advanced technologies such as:
-. flexible grids based on relative units (percentages)
-. responsive images that scale with the layout
-. CSS media queries that apply styles based on device characteristics
-
-All media queries are set at a max of 627px
+. User profile information fetched from the server and displayed on the page
+. Initial cards loaded from the server and displayed on the page
+. Ability to edit user profile information and save changes to the server
+. Ability to add new cards and save them to the server
+. Ability to delete cards and remove them from the server
+. Ability to like and unlike cards
+. Ability to undate the user's profile picture
+. Improved UX with loading indicators and error handling
 
 ## Screenshots
 
@@ -78,8 +69,19 @@ All media queries are set at a max of 627px
 
 - [Link to the project video] https://drive.google.com/file/d/19NP3zFQDkcpWXxFGPZvV3CsdlkObASVr/view?usp=sharing
 
-## Deployment
+## Deployed Project
 
-This webpage is deployed to GitHub Pages
+View the deployed project on GitHub Pages
 
 - Deployment Link:https://mellamsil.github.io/se_project_spots/
+
+## API Endpoints
+
+- GET/users/me
+- PATCH/users/me
+- PATCH/users/me/avatar
+- GET/cards
+- POST/cards
+- DELETE/cards/:cardId
+- PUT/cards/:cardId/likes
+- DELETE/cards/:cardId/likes

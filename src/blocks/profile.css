@@ -17,8 +17,6 @@
   align-items: flex-end;
   justify-content: center;
   visibility: hidden;
-
-  /* TODO - Finish mobile avatar button styles */
 }
 
 .profile__avatar-container:hover .profile__avatar-button {
@@ -154,11 +152,13 @@
     visibility: visible;
   }
 
-  /* TODO - Set content of ::after element to */
-  /* TODO - Finish mobile avatar button styles */
+  .profile__avatar-button::after {
+    content-visibility: hidden;
+    visibility: visible;
+  }
 
-  .profile__avatar-content::after {
-    visibility: hidden;
+  .profile__pencil-icon {
+    visibility: visible;
   }
 
   .profile .profile__avatar {

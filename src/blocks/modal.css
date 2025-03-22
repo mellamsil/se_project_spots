@@ -141,7 +141,6 @@
 .modal__error {
   display: block;
   color: red;
-  /* TODO - use correct color and font sizes */
   margin-top: 8px;
 }
 
