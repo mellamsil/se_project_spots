@@ -160,7 +160,7 @@ function handleEditFormSubmit(event) {
     })
     .catch(console.error)
     .finally(() => {
-      // TODO - Call setButtonText instead
+      setButtonText(submitButton, false);
       submitButton.textContent = "Save";
     });
 }
@@ -192,6 +192,7 @@ function handleavatarFormSubmit(event) {
       console.log("Success:", data);
       closeModal(avatarModal);
       event.target.reset();
+      disabledButton(submitButton, settings);
     })
     .catch((error) => console.error("Error:", error));
 }
@@ -299,6 +300,12 @@ deleteForm.addEventListener("submit", handleDeleteSubmit);
 closeButtons.forEach((button) => {
   const modal = button.closest(".modal");
   button.addEventListener("click", () => closeModal(modal));
+});
+
+const deleteCancelBtn = document.querySelector(".modal__button-cancel");
+
+deleteCancelBtn.addEventListener("click", () => {
+  closeModal(deleteModal);
 });
 
 editFormElement.addEventListener("submit", handleEditFormSubmit);
