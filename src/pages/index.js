@@ -142,7 +142,6 @@ function handleEditFormSubmit(event) {
   event.preventDefault();
 
   const submitButton = event.submitter;
-  submitButton.textContent = "Saving...";
   setButtonText(submitButton, true, "Save", "Saving...");
 
   api
@@ -158,7 +157,6 @@ function handleEditFormSubmit(event) {
     .catch(console.error)
     .finally(() => {
       setButtonText(submitButton, false);
-      submitButton.textContent = "Save";
     });
 }
 
@@ -195,38 +193,42 @@ function handleAddCardSubmit(event) {
     });
 }
 
-function handleavatarFormSubmit(event) {
+function handleAvatarFormSubmit(event) {
   event.preventDefault();
-  setButtonText(cardSubmitButton, true);
+  const submitButton = event.submitter;
+
+  setButtonText(submitButton, true);
 
   api
     .editAvatarInfo(avatarInput.value)
     .then((data) => {
       profileAvatar.src = data.avatar;
-      console.log("Success:", data);
       closeModal(avatarModal);
       event.target.reset();
       disabledButton(avatarSubmitButton, settings);
     })
-    .catch((error) => console.error("Error:", error));
-  setButtonText(cardSubmitButton, false);
+    .catch((error) => console.error("Error:", error))
+    .finally(() => {
+      setButtonText(submitButton, false);
+    });
 }
 
 function handleDeleteSubmit(event) {
   event.preventDefault();
-  setButtonText(cardSubmitButton, true);
-  // cardSubmitButton.textContent = "Saving...";
+  const submitButton = event.submitter;
+
+  setButtonText(submitButton, true, "Delete", "Deleting...");
   api
     .deleteCard(selectedCardId)
     .then(() => {
       selectedCard.remove();
       closeModal(deleteModal);
     })
-    .catch(console.error);
-  setButtonText(cardSubmitButton, false);
-  // cardSubmitButton.textContent = "Save";
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(submitButton, false, "Delete", "Deleting...");
+    });
 }
-deleteForm.addEventListener("submit", handleDeleteSubmit);
 
 function handleDeleteCard(cardElement, cardId) {
   selectedCard = cardElement;
@@ -305,7 +307,7 @@ avatarModalButton.addEventListener("click", () => {
   openModal(avatarModal);
 });
 
-avatarForm.addEventListener("submit", handleavatarFormSubmit);
+avatarForm.addEventListener("submit", handleAvatarFormSubmit);
 
 deleteForm.addEventListener("submit", handleDeleteSubmit);
 
