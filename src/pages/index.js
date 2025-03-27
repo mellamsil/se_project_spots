@@ -6,7 +6,7 @@ import {
   settings,
   disabledButton,
 } from "../scripts/validation.js";
-import { setButtonText } from "../utils/helpers.js";
+//import { setButtonText } from "../utils/helpers.js";
 import Api from "../utils/Api.js";
 // import { get } from "core-js/core/dict";
 
@@ -61,7 +61,6 @@ api
 
 const numbers = [2, 3, 5];
 
-// Arrow function. How will Internet Explorer cope with it?
 const doubledNumbers = numbers.map((number) => number * 2);
 
 // Profile elements
@@ -142,9 +141,8 @@ function closeModalOverlay(event) {
 function handleEditFormSubmit(event) {
   event.preventDefault();
 
-  // change text content to "Saving...."
   const submitButton = event.submitter;
-  // submitButton.textContent = "Saving...";
+  submitButton.textContent = "Saving...";
   setButtonText(submitButton, true, "Save", "Saving...");
 
   api
@@ -153,7 +151,6 @@ function handleEditFormSubmit(event) {
       about: editModalDescriptionInput.value,
     })
     .then((data) => {
-      // TODO - Use data argument instead of the input values
       profileName.textContent = editModalNameInput.value;
       profileDescription.textContent = editModalDescriptionInput.value;
       closeModal(editModal, settings);
@@ -165,11 +162,23 @@ function handleEditFormSubmit(event) {
     });
 }
 
-// TODO - Implement loading text for all other form submissions
+function setButtonText(
+  button,
+  isLoading,
+  defaultText = "Save",
+  loadingText = "Saving..."
+) {
+  if (isLoading) {
+    button.textContent = loadingText;
+  } else {
+    button.textContent = defaultText;
+  }
+}
 
 function handleAddCardSubmit(event) {
   event.preventDefault();
   const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
+  setButtonText(cardSubmitButton, true);
 
   api
     .addNewCards(inputValues)
@@ -180,11 +189,16 @@ function handleAddCardSubmit(event) {
       disabledButton(cardSubmitButton, settings);
       closeModal(cardModal);
     })
-    .catch((error) => console.error(error));
+    .catch((error) => console.error(error))
+    .finally(() => {
+      setButtonText(cardSubmitButton, false);
+    });
 }
 
 function handleavatarFormSubmit(event) {
   event.preventDefault();
+  setButtonText(cardSubmitButton, true);
+
   api
     .editAvatarInfo(avatarInput.value)
     .then((data) => {
@@ -192,13 +206,16 @@ function handleavatarFormSubmit(event) {
       console.log("Success:", data);
       closeModal(avatarModal);
       event.target.reset();
-      disabledButton(submitButton, settings);
+      disabledButton(avatarSubmitButton, settings);
     })
     .catch((error) => console.error("Error:", error));
+  setButtonText(cardSubmitButton, false);
 }
 
 function handleDeleteSubmit(event) {
   event.preventDefault();
+  setButtonText(cardSubmitButton, true);
+  // cardSubmitButton.textContent = "Saving...";
   api
     .deleteCard(selectedCardId)
     .then(() => {
@@ -206,6 +223,8 @@ function handleDeleteSubmit(event) {
       closeModal(deleteModal);
     })
     .catch(console.error);
+  setButtonText(cardSubmitButton, false);
+  // cardSubmitButton.textContent = "Save";
 }
 deleteForm.addEventListener("submit", handleDeleteSubmit);
 
@@ -230,32 +249,25 @@ function getCardElement(data) {
   cardLinkEl.src = data.link;
   cardLinkEl.alt = data.name;
 
-  // runs on page load, and likes the card visually if the card isLiked on the server
   if (isLiked) {
     cardLikeButton.classList.add("card__like-button_liked");
   }
 
-  cardLikeButton.addEventListener(
-    "click",
-    (event) => {
-      // if card is liked, then make request to unlike
-      //whereas if card is not liked, then make request to like it
-      api
-        .changeLikeStatus(id, isLiked)
-        .then(() => {
-          isLiked = !isLiked;
-          if (isLiked) {
-            cardLikeButton.classList.add("card__like-button_liked");
-          } else {
-            cardLikeButton.classList.remove("card__like-button_liked");
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
-    //handleLike(event, data._id)
-  );
+  cardLikeButton.addEventListener("click", (event) => {
+    api
+      .changeLikeStatus(id, isLiked)
+      .then(() => {
+        isLiked = !isLiked;
+        if (isLiked) {
+          cardLikeButton.classList.add("card__like-button_liked");
+        } else {
+          cardLikeButton.classList.remove("card__like-button_liked");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
 
   cardDeleteButton.addEventListener("click", (event) => {
     handleDeleteCard(cardElement, data._id);
@@ -312,8 +324,3 @@ editFormElement.addEventListener("submit", handleEditFormSubmit);
 cardForm.addEventListener("submit", handleAddCardSubmit);
 
 enableValidation(validationconfig);
-
-// function renderCard(item, method = "append") {
-//   const cardElement = getCardElement(item);
-//   cardsList[append](cardElement);
-// }
