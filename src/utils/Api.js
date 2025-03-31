@@ -19,13 +19,6 @@ class Api {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
     }).then((res) => this._handleServerRes(res));
-
-    // .then((res) => {
-    //   if (res.ok) {
-    //     return res.json();
-    //   }
-    //   Promise.reject(`Error: ${res.status}`);
-    // });
   }
 
   getUserInfo() {
