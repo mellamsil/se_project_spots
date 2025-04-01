@@ -61,13 +61,9 @@ The following are the functionalities of the Spots website:
 . Ability to undate the user's profile picture
 . Improved UX with loading indicators and error handling
 
-## Screenshots
-
-![project features](image.png)
-
 **Video**
 
-- [Link to the project video] https://drive.google.com/file/d/19NP3zFQDkcpWXxFGPZvV3CsdlkObASVr/view?usp=sharing
+- [Link to the project video] https://drive.google.com/file/d/1Ty8xNfVv5seqQ0U6N0FTEU3YeFMDd6ku/view?usp=sharing
 
 ## Deployed Project
 
