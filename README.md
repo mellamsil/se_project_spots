@@ -69,7 +69,7 @@ The following are the functionalities of the Spots website:
 
 View the deployed project on GitHub Pages
 
-- Deployment Link:https://mellamsil.github.io/se_project_spots/
+- Deployment Link:https://github.com/mellamsil/se_project_spots/pull/2
 
 ## API Endpoints
 
